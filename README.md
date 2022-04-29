@@ -9,7 +9,7 @@
 | last_name          | string  | null: false               |
 | first_name_kana    | string  | null: false               |
 | last_name_kana     | string  | null: false               |
-| birthday           | integer | null: false               |
+| birthday           | date    | null: false               |
 
 ### Association
 
@@ -53,9 +53,9 @@
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | postal_code      | string     | null: false                    |
-| prefectures      | string     | null: false                    |
+| prefectures_id   | string     | null: false                    |
 | municipalities   | string     | null: false                    |
-| address          | integer    | null: false                    |
+| address          | string     | null: false                    |
 | building_name    | string     |                                |
 | telephone_number | string     | null: false                    |
 | purchase         | references | null: false, foreign_key: true |
