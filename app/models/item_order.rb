@@ -1,6 +1,6 @@
 class ItemOrder
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :address, :building_name, :telephone_number
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :address, :building_name, :telephone_number, :token
 
   with_options presence: true do
     validates :user_id
@@ -9,8 +9,8 @@ class ItemOrder
     validates :prefecture_id, numericality: { other_than: 1 }
     validates :municipalities
     validates :address
-    validates :building_name
     validates :telephone_number, format: { with: /\A[0-9]{10,11}\z/ }
+    validates :token
   end
 
   def save
