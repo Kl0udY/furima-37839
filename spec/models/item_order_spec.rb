@@ -26,7 +26,7 @@ RSpec.describe ItemOrder, type: :model do
       it 'postal_codeが「半角数字3桁+ハイフン+半角数字4桁」でなければ保存できない' do
         @item_order.postal_code = '1234567'
         @item_order.valid?
-        expect(@item_order.errors.full_messages).to include("Postal code is invalid")
+        expect(@item_order.errors.full_messages).to include('Postal code is invalid')
       end
       it 'prefecture_idが空では保存できない' do
         @item_order.prefecture_id = ''
@@ -51,7 +51,7 @@ RSpec.describe ItemOrder, type: :model do
       it 'telephone_numberが「半角数字10桁以上11桁以内」でなければ保存できない' do
         @item_order.telephone_number = '000123456789'
         @item_order.valid?
-        expect(@item_order.errors.full_messages).to include("Telephone number is invalid")
+        expect(@item_order.errors.full_messages).to include('Telephone number is invalid')
       end
       it 'tokenが空では保存できない' do
         @item_order.token = ''

@@ -1,6 +1,7 @@
 class ItemOrder
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :address, :building_name, :telephone_number, :token
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :address, :building_name, :telephone_number,
+                :token
 
   with_options presence: true do
     validates :user_id
@@ -15,6 +16,7 @@ class ItemOrder
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building_name: building_name, telephone_number: telephone_number, order_id: order.id)
+    ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, municipalities: municipalities,
+                           address: address, building_name: building_name, telephone_number: telephone_number, order_id: order.id)
   end
 end
