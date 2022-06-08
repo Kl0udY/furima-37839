@@ -33,6 +33,11 @@ RSpec.describe ItemOrder, type: :model do
         @item_order.valid?
         expect(@item_order.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it 'prefecture_idが1(「---」を選択)では保存できない' do
+        @item_order.prefecture_id = 1
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include("Prefecture must be other than 1")
+      end
       it 'municipalitiesが空では保存できない' do
         @item_order.municipalities = ''
         @item_order.valid?
@@ -48,8 +53,18 @@ RSpec.describe ItemOrder, type: :model do
         @item_order.valid?
         expect(@item_order.errors.full_messages).to include("Telephone number can't be blank")
       end
-      it 'telephone_numberが「半角数字10桁以上11桁以内」でなければ保存できない' do
+      it 'telephone_numberが「半角数字9桁以下」では保存できない' do
+        @item_order.telephone_number = '000123456'
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include('Telephone number is invalid')
+      end
+      it 'telephone_numberが「半角数字12桁以上」では保存できない' do
         @item_order.telephone_number = '000123456789'
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include('Telephone number is invalid')
+      end
+      it 'telephone_numberに半角数字以外が含まれている場合は保存できない' do
+        @item_order.telephone_number = 'あ0001234567'
         @item_order.valid?
         expect(@item_order.errors.full_messages).to include('Telephone number is invalid')
       end
@@ -57,6 +72,16 @@ RSpec.describe ItemOrder, type: :model do
         @item_order.token = ''
         @item_order.valid?
         expect(@item_order.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐付いていなければ保存できない' do
+        @item_order.user_id = nil
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていなければ保存できない' do
+        @item_order.item_id = nil
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
